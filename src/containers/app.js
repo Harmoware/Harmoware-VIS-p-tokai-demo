@@ -499,7 +499,7 @@ const App = (props)=>{
     if (Array.isArray(readdata)) {
       return
     }
-    const {videoUrl,videoSizeRate,videoShiftX,videoShiftY,imageDefUrl} = readdata
+    const {videoUrl,videoSizeRate,videoShiftX,videoShiftY,videoRotateZ,imageDefUrl} = readdata
     if(videoUrl !== undefined){
       if(videoUrl === ""){
         setVideoUrl(undefined)
@@ -515,6 +515,9 @@ const App = (props)=>{
     }
     if(videoShiftY !== undefined){
       setVShiftY(videoShiftY)
+    }
+    if(videoRotateZ !== undefined){
+      setVRotateZ(videoRotateZ)
     }
     if(imageDefUrl !== undefined){
       ImageFileRead({setImgList,imageDefUrl})
