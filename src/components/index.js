@@ -62,6 +62,10 @@ export default class Controller extends React.Component {
     const vShiftY = +e.target.value
     this.props.setVShiftY(vShiftY)
   }
+  setVRotateZ(e){
+    const vRotateZ = +e.target.value
+    this.props.setVRotateZ(vRotateZ)
+  }
 
   onChangeSelect(e){
     const imgIdIdx = +e.target.value
@@ -109,7 +113,7 @@ export default class Controller extends React.Component {
 
   render() {
     const {setImgList, getOutputData, imgIdIdx, srclist, viewState, settime, timeLength, configLoad,
-      videoplay, videopause, videorestart, vSzRate, vShiftX, vShiftY, videoUrl, setVideoUrl, actions, inputFileName } = this.props
+      videoplay, videopause, videorestart, vSzRate, vShiftX, vShiftY, vRotateZ, videoUrl, setVideoUrl, actions, inputFileName } = this.props
     const { movesFileName } = inputFileName;
     return (
         <div className="harmovis_controller" ref={this.divRef} >
@@ -142,6 +146,13 @@ export default class Controller extends React.Component {
                 className="harmovis_input_range" id="VideoShiftY" />:
               <input type="number" value={vShiftY} min={-1000} max={1000} step={1} onChange={this.setVShiftY.bind(this)}
                 className="harmovis_input_number" id="VideoShiftY" />
+            </li>
+            <li className="flex_row">
+              <label htmlFor="VideoRotate">{`VideoRotate:`}</label>
+              <input type="range" value={vRotateZ} min={-180} max={180} step={0.1} onChange={this.setVRotateZ.bind(this)}
+                className="harmovis_input_range" id="VideoRotate" />:
+              <input type="number" value={vRotateZ} min={-180} max={180} step={1} onChange={this.setVRotateZ.bind(this)}
+                className="harmovis_input_number" id="VideoRotate" />
             </li>
             <li className="flex_row"></li>
             <li className="flex_row">
@@ -235,10 +246,10 @@ const TransformController = (props)=>{
 
         <PositionController {...props} dim={'x'} />
         <PositionController {...props} dim={'y'} />
-        <PositionController {...props} dim={'z'} />
+        {/*<PositionController {...props} dim={'z'} />*/}
 
-        <DegreeController {...props} dim={'x'} />
-        <DegreeController {...props} dim={'y'} />
+        {/*<DegreeController {...props} dim={'x'} />*/}
+        {/*<DegreeController {...props} dim={'y'} />*/}
         <DegreeController {...props} dim={'z'} />
 
         <SizeController {...props} />

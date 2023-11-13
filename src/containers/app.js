@@ -31,6 +31,7 @@ const App = (props)=>{
   const [vSzRate, setVSzRate] = React.useState(0.05)
   const [vShiftX, setVShiftX] = React.useState(0)
   const [vShiftY, setVShiftY] = React.useState(0)
+  const [vRotateZ , setVRotateZ] = React.useState(0)
   const [videoUrl, setVideoUrl] = React.useState(undefined)
 
   const [pathData, setPathData] = React.useState([])
@@ -523,12 +524,13 @@ const App = (props)=>{
   const getVideoLayers = ()=>{
     if(videoUrl && videoRef.current && videoRef.current.videoRef.current){
       const {videoWidth=1,videoHeight=1} = videoRef.current.videoRef.current
-      const x = (videoWidth/2)*vSzRate
-      const y = (videoHeight/2)*vSzRate
+      const width = videoWidth*vSzRate
+      const height = videoHeight*vSzRate
+      const bounds = getBounds(width,{x:0, y:0, z:vRotateZ},{x:vShiftX,y:vShiftY,z:0},{width,height},{x:0,y:0,width,height})
       return new BitmapLayer({
         id: `VideoLayer`,
         image: videoRef.current.videoRef.current,
-        bounds: [[(-x)+vShiftX,(-y)+vShiftY,0],[(-x)+vShiftX,y+vShiftY,0],[x+vShiftX,y+vShiftY,0],[x+vShiftX,(-y)+vShiftY,0]],
+        bounds: bounds,
         coordinateSystem: COORDINATE_SYSTEM.CARTESIAN,
       })
     }
@@ -658,11 +660,12 @@ const App = (props)=>{
         imgdispMode={imgdispMode} setImgdispMode={setImgdispMode} panel={App.panel} configLoad={configLoad}
         videoplay={videoplay} videopause={videopause} videorestart={videorestart} videoSetTime={videoSetTime}
         vSzRate={vSzRate} setVSzRate={setVSzRate} videoUrl={videoUrl} setVideoUrl={setVideoUrl}
-        vShiftX={vShiftX} setVShiftX={setVShiftX} vShiftY={vShiftY} setVShiftY={setVShiftY} />
+        vShiftX={vShiftX} setVShiftX={setVShiftX} vShiftY={vShiftY} setVShiftY={setVShiftY}
+        vRotateZ={vRotateZ} setVRotateZ={setVRotateZ} />
       <div className="harmovis_area">
 
       <div className='videoArea'>
-        <VideoController ref={videoRef} rate={vSzRate} shift_x={vShiftX} shift_y={vShiftY} videoUrl={videoUrl} />
+        <VideoController ref={videoRef} videoUrl={videoUrl} />
       </div>
 
       <DeckGL
