@@ -4,7 +4,9 @@
   "description": "p-tokai-demo",
   "main": "index.js",
   "scripts": {
+    "start_legacy": "set NODE_OPTIONS=--openssl-legacy-provider& npm start",
     "start": "webpack-cli serve --port 3030 --open --mode development",
+    "build_legacy": "set NODE_OPTIONS=--openssl-legacy-provider& npm run build",
     "build": "webpack --mode production"
   },
   "author": "p-tokai-demo",
